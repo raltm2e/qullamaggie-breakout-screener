@@ -83,7 +83,7 @@ leftcol, midcol, rightcol = st.columns([1,1,1])
 with leftcol:
     with st.expander('Metadata'):
         metadata = download_metadata()
-        st.dataframe(metadata)
+        st.dataframe(metadata, hide_index=True)
 
     with st.expander('Data (initial download takes roughly 5 minutes)'):
         data = download_data()
@@ -92,7 +92,7 @@ with leftcol:
     threshold = st.number_input('Z-Score Threshold Value', value=2.0)
     breakouts = scanner(data,threshold)
     st.text('breakouts')
-    st.dataframe(breakouts)
+    st.dataframe(breakouts, hide_index=True)
 
 
 i = 0
