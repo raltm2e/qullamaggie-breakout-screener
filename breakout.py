@@ -89,9 +89,18 @@ with leftcol:
         data = download_data()
         st.dataframe(data)
 
-    threshold = st.number_input('Z-Score Threshold Value', value=2.0)
-    breakouts = scanner(data,threshold)
-    st.text('breakouts')
+    threshcol, lookbackcol =  st.columns([1,1])
+    with threshcol:
+        threshold = st.number_input('Z-Score (default=2)', value=2.0)
+    with lookbackcol:
+        lookback = st.number_input('Lookback (default=0)', value=0)
+        lookback = lookback*-1
+    if lookback == 0:
+        breakouts = scanner(data,threshold)
+    else:
+        breakouts = scanner(data[:lookback],threshold)
+
+    st.markdown('Breakouts')
     st.dataframe(breakouts, hide_index=True)
 
 
